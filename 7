@@ -1,0 +1,68 @@
+<!-- HTML -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login Page</title>
+</head>
+<body>
+<form action = "Login" method = "post">
+<label>Username: </label>
+<input type = "text" name = "user">
+<br>
+<label>Password:</label>
+<input type="password" name = "pwd">
+<br>
+<input type="submit" name = "Submit">
+</form>
+</body>
+</html>
+
+
+// Servlet Code
+import java.io.IOException; import java.sql.*;
+import javax.servlet.ServletException; import javax.servlet.annotation.WebServlet; import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest; import javax.servlet.http.HttpServletResponse; @WebServlet("/Login")
+public class Login extends HttpServlet {
+private static final long serialVersionUID = 1L; public Login() {
+super();
+// TODO Auto-generated constructor stub
+}
+protected void doGet(HttpServletRequest request, HttpServletResponse
+response) throws ServletException, IOException {
+// TODO Auto-generated method stub response.getWriter().append("Served at:
+").append(request.getContextPath());
+}
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+// TODO Auto-generated method stub
+//doGet(request, response);
+String username = request.getParameter("user"); String pass = request.getParameter("pwd");
+response.getWriter().print("Client Username: " + username); response.getWriter().print("Client Password: " + pass); DataLogin d = new DataLogin();
+ResultSet rs = d.readUser(username); try {
+while(rs.next()) { response.getWriter().print("Server username:"+ rs.getString(1)); response.getWriter().print("Server Password:"+ rs.getString(2));
+}
+} catch (IOException | SQLException e) {
+// TODO Auto-generated catch block e.printStackTrace();
+}
+}
+}
+
+// DataBaseConnection import java.sql.*; public class DataLogin {
+public ResultSet readUser(String str){ Connection con = null; ResultSet rs= null;
+String url = "jdbc:mysql://localhost:3306/jdbcdb"; String usr = "root";
+String psw = "Etc@1234";
+String query = "Select *from userinfo where username = ?"; try {
+Class.forName("com.mysql.cj.jdbc.Driver");
+con = DriverManager.getConnection(url, usr, psw);
+
+
+PreparedStatement ps = con.prepareStatement(query); ps.setString(1,str);
+rs = ps.executeQuery();
+}catch (SQLException e) { e.printStackTrace();
+]catch (ClassNotFoundException e) { e.printStackTrace();
+}
+return rs;
+}
+
+
+}
