@@ -1,0 +1,48 @@
+import java.awt.*;
+import java.awt.event.*;
+public class Expt_no2_MouseEvent extends Frame implements MouseListener {
+String str;
+Frame f;
+TextField tf;
+Expt_no2_MouseEvent() {
+f=new Frame("Mouse Action");
+f.setSize(400,400);
+f.setLayout (new FlowLayout());
+tf=new TextField("Mouse Event");
+tf.setSize(500,1000);
+f.add(tf);
+f.addMouseListener(this);
+f.setVisible(true);
+f.addWindowListener(new WindowAdapter() {
+public void windowClosing (WindowEvent e) {
+f.dispose() ;
+}
+});
+}
+public void mouseClicked(MouseEvent e) {
+// TODO Auto-generated method stub
+str = " mouse clicked";
+tf.setText(str);;
+}
+public void mousePressed(MouseEvent e) {
+// TODO Auto-generated method stub
+str = " mouse BUtton Pressed";
+tf.setText(str);;
+}
+public void mouseReleased(MouseEvent e) {
+// TODO Auto-generated method stub
+str = " mouse BUtton Released";
+tf.setText(str);;
+}
+public void mouseEntered(MouseEvent e) {
+// TODO Auto-generated method stub
+str = " mouse Button Entered";
+tf.setText(str);;
+}
+public void mouseExited(MouseEvent e) {
+// TODO Auto-generated method stub
+str = " mouse Button Exited";
+tf.setText(str);;
+}
+public static void main(String arg []) {
+Expt_no2_MouseEvent obj = new Expt_no2_MouseEvent();}}
